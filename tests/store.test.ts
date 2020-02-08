@@ -1,7 +1,7 @@
 import { describe } from 'zip-tap';
 import { writableStore, dependantStore, readableStore } from '../src/runtime/store';
 
-describe(`stores`, it => {
+describe(`Stores`, it => {
 	it(`should update and call the subscribers`, expect => {
 		const changes = [`this`, `that`, `then`, `there`];
 		let count = 0;
