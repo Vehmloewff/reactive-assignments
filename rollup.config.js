@@ -4,7 +4,6 @@ import sucrase from '@rollup/plugin-sucrase';
 import globFiles from 'rollup-plugin-glob-files';
 import command from 'rollup-plugin-command';
 
-import pkg from './package.json';
 import generateCompilerMeta from './commands/generate-compiler-meta.js';
 
 const prod = process.env.NODE_ENV === 'production';
@@ -38,17 +37,14 @@ const runtime = {
 
 const test = {
 	input: `@tests`,
-	output: [
-		{ file: `compiler/index.js`, format: 'cjs' },
-		{ file: `compiler/index.mjs`, format: 'esm' },
-	],
+	output: { file: `dist/test.js`, format: 'cjs' },
 	plugins: plugins.concat(
 		globFiles({
 			key: `@tests`,
 			include: `./tests/**/*.ts`,
 			justImport: true,
 		}),
-		command(`zip-tap-reporter node ${pkg.main}`, { exitOnFail: !watching })
+		command(`zip-tap-reporter node dist/test.js`, { exitOnFail: !watching })
 	),
 };
 
