@@ -1,0 +1,54 @@
+{
+	"name": "reactivejs",
+	"version": "0.0.0",
+	"description": "TODO: Add description",
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
+	"typings": "typings/runtime/index.d.ts",
+	"scripts": {
+		"build": "tsc && rollup --environment=NODE_ENV:production -c",
+		"test": "rollup --environment=NODE_ENV:development -c",
+		"lint": "prettier --write \"./**\"",
+		"lint:test": "prettier --check \"./**\"",
+		"preversion": "npm run test && npm run lint:test && npm run build",
+		"prepublishOnly": "npm run build",
+		"postversion": "git push && git push --tags && rm -rf build/temp && npm publish"
+	},
+	"keywords": [
+		"reactive",
+		"compiler",
+		"assignments"
+	],
+	"author": {
+		"name": "Vehmloewff",
+		"url": "https://github.com/Vehmloewff"
+	},
+	"files": [
+		"dist",
+		"typings"
+	],
+	"license": "MIT",
+	"devDependencies": {
+		"@rollup/plugin-commonjs": "^11.0.2",
+		"@rollup/plugin-node-resolve": "^7.1.1",
+		"@rollup/plugin-sucrase": "^3.0.0",
+		"@rollup/plugin-typescript": "^3.0.0",
+		"acorn": "^7.1.0",
+		"cross-env": "^7.0.0",
+		"prettier": "^1.19.1",
+		"rollup": "^1.31.0",
+		"rollup-plugin-command": "^1.1.2",
+		"rollup-plugin-glob-files": "^2.0.2",
+		"tslib": "^1.10.0",
+		"typescript": "^3.7.5",
+		"write": "^2.0.0",
+		"zip-tap": "^1.0.5",
+		"zip-tap-reporter": "^2.0.0"
+	},
+	"homepage": "https://github.com/Vehmloewff/reactivejs",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Vehmloewff/reactivejs"
+	},
+	"dependencies": {}
+}
