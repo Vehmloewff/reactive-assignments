@@ -36,14 +36,14 @@
 		"acorn": "^7.1.0",
 		"cross-env": "^7.0.0",
 		"prettier": "^1.19.1",
-		"rollup": "^1.31.0",
+		"rollup": "^1.31.1",
 		"rollup-plugin-command": "^1.1.2",
 		"rollup-plugin-glob-files": "^2.0.2",
 		"tslib": "^1.10.0",
 		"typescript": "^3.7.5",
 		"write": "^2.0.0",
-		"zip-tap": "^1.0.5",
-		"zip-tap-reporter": "^2.0.0"
+		"zip-tap": "^1.0.6",
+		"zip-tap-reporter": "^2.0.1"
 	},
 	"homepage": "https://github.com/Vehmloewff/reactivejs",
 	"repository": {
