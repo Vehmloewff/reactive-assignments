@@ -116,7 +116,7 @@ The code can be built via the `npm run build` command. To watch the filesystem a
 
 The runtime library is located in the `src/runtime` folder. The compiler is in the `src/compiler` folder.
 
-This project uses prettier for code formatting. Don't forget to run `yarn lint` before you commit.
+This project uses prettier for code formatting. Don't forget to run `npm run lint` before you commit.
 
 ## Stores API
 
