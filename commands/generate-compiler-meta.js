@@ -5,11 +5,8 @@ const pkg = {
 	module: `index.mjs`,
 	typings: `index.d.ts`,
 };
-const dts = `export * from '../typings/compiler`;
+const dts = `export * from '../typings/compiler';`;
 
 export default async function() {
-	await Promise.all([
-		write(`compiler/package.json`, JSON.stringify(pkg)),
-		write(`compiler/index.d.ts`, dts),
-	]);
+	await Promise.all([write(`compiler/package.json`, JSON.stringify(pkg)), write(`compiler/index.d.ts`, dts)]);
 }

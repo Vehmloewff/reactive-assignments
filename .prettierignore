@@ -4,6 +4,7 @@ node_modules
 .prettierignore
 LICENSE
 /dist
+/compiler
 /typings
 
 **/*.png
