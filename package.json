@@ -33,6 +33,7 @@
 		"@rollup/plugin-node-resolve": "^7.1.1",
 		"@rollup/plugin-sucrase": "^3.0.0",
 		"@rollup/plugin-typescript": "^3.0.0",
+		"@types/estree": "0.0.42",
 		"prettier": "^1.19.1",
 		"rollup": "^1.31.1",
 		"rollup-plugin-command": "^1.1.2",
@@ -49,6 +50,7 @@
 		"url": "https://github.com/Vehmloewff/reactivejs"
 	},
 	"dependencies": {
-		"acorn": "^7.1.0"
+		"acorn": "^7.1.0",
+		"magic-string": "^0.25.6"
 	}
 }
