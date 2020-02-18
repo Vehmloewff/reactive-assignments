@@ -27,4 +27,12 @@ describe(`Make Tree`, it => {
 			})
 		).toMatchObject({ baby: 'goo!' });
 	});
+
+	it(`should work on undefined arrays`, expect => {
+		expect(
+			makeTree(['parent', '0', 'child'], {
+				parent: [],
+			})
+		).toMatchObject({});
+	});
 });
