@@ -1,10 +1,8 @@
-import isPlainObject from 'is-plain-obj';
-
 export default (keysArray: string[], obj: any) => {
 	return keysArray.reduce((parent, key) => {
 		let child = parent[key];
 
-		if (!isPlainObject(child) && !Array.isArray(child)) {
+		if (typeof child !== 'object' || child === undefined || child === null) {
 			child = {};
 			parent[key] = child;
 		}

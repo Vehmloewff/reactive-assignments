@@ -34,7 +34,6 @@
 		"@rollup/plugin-sucrase": "^3.0.0",
 		"@rollup/plugin-typescript": "^3.0.0",
 		"@types/estree": "0.0.42",
-		"@types/is-plain-obj": "^2.0.2",
 		"@types/flat": "0.0.28",
 		"prettier": "^1.19.1",
 		"rollup": "^1.31.1",
@@ -54,7 +53,6 @@
 	"dependencies": {
 		"acorn": "^7.1.0",
 		"flat": "^5.0.0",
-		"is-plain-obj": "^2.1.0",
 		"magic-string": "^0.25.6"
 	}
 }
