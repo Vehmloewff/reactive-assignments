@@ -44,7 +44,7 @@ const test = {
 			include: `./tests/**/*.ts`,
 			justImport: true,
 		}),
-		command(`zip-tap-reporter node dist/test.js`, { exitOnFail: !watching })
+		command(`node dist/test.js`, { exitOnFail: !watching })
 	),
 };
 
