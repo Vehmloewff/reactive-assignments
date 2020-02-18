@@ -9,12 +9,11 @@ export default (parsed: Node, s: MagicString): MagicString => {
 
 	declarations.forEach((declaration: VariableDeclaration) => {
 		let varName: string;
-		let isReadable: boolean;
 		let reactiveLines: string;
 
 		// Get the declaration data
 		if (declaration.declarations.length !== 1) throw new Error(`An identifer was expected ${provideLocation(declaration.loc)}`);
-		isReadable = declaration.kind === `const`;
+		if (declaration.kind === `const`) return; // const declarations should not be updated, so there is no need to make them reactive
 
 		const unit = declaration.declarations[0];
 		if (unit.id.type === 'Identifier') {
@@ -24,7 +23,7 @@ export default (parsed: Node, s: MagicString): MagicString => {
 		}
 
 		// Write the reactive lines
-		reactiveLines = `\nconst $${varName} = $$store.${isReadable ? 'readable' : 'writable'}Store(${varName});`;
+		reactiveLines = `\nconst $${varName} = $$store.writableStore(${varName});`;
 		reactiveLines += `\n$${varName}.subscribe(v => ${varName} = v);`;
 
 		// Write it to the string

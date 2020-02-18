@@ -12,4 +12,11 @@ describe(`Reactive Declarations`, it => {
 
 		expect(compile(sourceCode).code).toBe(expected);
 	});
+
+	it(`should do nothing to 'const' declarations`, expect => {
+		const sourceCode = `const foo = 'bar';`;
+		const expected = createExpected([`const foo = 'bar';`]);
+
+		expect(compile(sourceCode).code).toBe(expected);
+	});
 });
