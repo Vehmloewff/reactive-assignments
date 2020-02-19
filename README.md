@@ -12,7 +12,7 @@ _Not on npm yet._ See the [development](#development) section for instructions o
 
 Modern javascript frameworks have become quite good at making javascript reactive. [React](https://reactjs.org), [Vue](https://vuejs.org), and [Svelte](https://svelte.dev) are all reactive. The problem is that they are all linked to the browser. They all have some sort of templating engine, and thus can sometimes be a bit large and slow. The idea of this library is to just make plain javascript reactive. Implementations can come later.
 
-The plan is that normoral javascript gets executed normorally, but when the compiler comes across this:
+The plan is that normal javascript gets executed normally, but when the compiler comes across this:
 
 ```js
 $: foo = bar;
@@ -96,7 +96,7 @@ $$store.updatable(() => bin.set(foo), foo, $foo);
 $foo.set(`baz`);
 
 // bin now equals 'baz' because the $$store.updatable function
-// calls the first paramater everytime one of the subsequent paramaters
+// calls the first parameter everytime one of the subsequent parameters
 // emits an update.
 ```
 
@@ -112,11 +112,11 @@ npm i
 npm test # or npm test -- -w
 ```
 
-The code can be built via the `npm run build` command. To watch the filesystem and rebuild on changes, use `npm run build -- -w`.
+The code can be built via the `npm run build` command. To watch the file system and rebuild on changes, use `npm run build -- -w`.
 
 The runtime library is located in the `src/runtime` folder. The compiler is in the `src/compiler` folder.
 
-This project uses prettier for code formatting. Don't forget to run `npm run lint` before you commit.
+This project uses [Prettier](https://prettier.io) for code formatting. Don't forget to `npm run lint` before you commit.
 
 ## Stores API
 
@@ -139,7 +139,7 @@ store = writable(value: any);
 store = readableStore(startValue: any, actions: ({ set, update }) => void);
 ```
 
-`store` is an object with all the properties as `writable` gives it, except `set` and `update`.
+`store` is an object with all the properties as `writableStore` gives it, except `set` and `update`.
 
 `actions` is a function that is passed in one property, an object containing the missing properties from `store`.
 
