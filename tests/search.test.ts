@@ -60,4 +60,16 @@ describe(`Object Search`, it => {
 
 		expect(search(obj, `type`, `var`)).toMatchObject(res);
 	});
+
+	it(`should be able to ignore when siblings are invalid`, expect => {
+		const obj = { thing: { type: `var`, data: { var: `din` } } };
+
+		expect(search(obj, `var`, `din`, [{ isSibling: { key: `type`, value: `var` } }])).toMatchObject([]);
+	});
+
+	it(`should be able to ignore when key is invalid`, expect => {
+		const obj = { thing: { type: `var`, data: { var: `din` } } };
+
+		expect(search(obj, `var`, `din`, [{ hasKey: `data` }])).toMatchObject([]);
+	});
 });
