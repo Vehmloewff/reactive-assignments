@@ -35,9 +35,19 @@ let foo = `bar`;
 ```js
 import $$store from 'reactivejs';
 
-let foo = `bar`;
-let $foo = $$store.writableStore(foo);
-$foo.subscribe(v => (foo = v));
+const foo = $$store.writableStore(`bar`);
+```
+
+References to the variable like this...
+
+```js
+if (foo === 'bar') console.log(`Hello, World!`);
+```
+
+...are compiled like this:
+
+```js
+if (foo.get() === 'bar') console.log(`Hello, World!`);
 ```
 
 And this...
@@ -49,7 +59,7 @@ foo = `baz`;
 ...gets compiled into this:
 
 ```js
-$foo.set(`baz`);
+foo.set(`baz`);
 ```
 
 Therefore, this...
@@ -62,7 +72,7 @@ $: bin = foo;
 ...can be compiled into this...
 
 ```js
-$$store.updatable(() => bin.set(foo), foo, $foo);
+$$store.updatable(() => bin.set(foo), foo);
 ```
 
 ...and make `bin` reactive.
@@ -81,19 +91,14 @@ foo = `baz`;
 Compiled code:
 
 ```js
-import $$store from 'reactivejs';
+import * as $$store from 'reactivejs';
 
-let foo = `bar`;
-let $foo = $$store.writableStore(foo);
-$foo.subscribe(v => (foo = v));
+let foo = $$store.writableStore(`bar`);
 
-let bin;
-let $bin = $$store.writableStore(bin);
-$bin.subscribe(v => (bin = v));
+let bin = $$store.writableStore();
+$$store.updatable(() => bin.set(foo), foo);
 
-$$store.updatable(() => bin.set(foo), foo, $foo);
-
-$foo.set(`baz`);
+foo.set(`baz`);
 
 // bin now equals 'baz' because the $$store.updatable function
 // calls the first parameter everytime one of the subsequent parameters
