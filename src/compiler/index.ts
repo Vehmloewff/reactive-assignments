@@ -1,11 +1,14 @@
 import { parse } from './parse';
 import declarations from './tasks/declarations';
 import importRuntime from './tasks/import-runtime';
+import assignments from './tasks/assignments';
+
+type Section = 'import' | 'declarations' | 'assignments';
 
 export interface CompileOptions {
 	sourcemap?: boolean;
 	file?: string;
-	sections?: ('import' | 'declarations')[];
+	sections?: Section[];
 }
 
 export function compile(code: string, options: CompileOptions = {}): { sitemap: string; code: string } {
@@ -15,11 +18,14 @@ export function compile(code: string, options: CompileOptions = {}): { sitemap: 
 	const { parsed } = res;
 
 	if (!options.sections) {
-		options.sections = ['import', 'declarations'];
+		options.sections = ['import', 'declarations', 'assignments'];
 	}
 
-	if (options.sections.find(v => v === 'import')) s = importRuntime(parsed, s);
-	if (options.sections.find(v => v === 'declarations')) s = declarations(parsed, s, code);
+	const isPlanned = (section: Section) => options.sections.find(v => v === section);
+
+	if (isPlanned('import')) s = importRuntime(parsed, s);
+	if (isPlanned('declarations')) s = declarations(parsed, s, code);
+	if (isPlanned('assignments')) s = assignments(parsed, s, code);
 
 	return {
 		sitemap: s.generateMap({ source: options.file, file: `${options.file}.map`, includeContent: true }).toString(),
