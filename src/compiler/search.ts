@@ -3,7 +3,7 @@ import makeTree from './lib/make-tree';
 
 type T = { [key: string]: any };
 
-interface Ignore {
+export interface Ignore {
 	isSibling?: {
 		key: string;
 		value: string;
