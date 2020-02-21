@@ -19,8 +19,12 @@ export function compile(code: string, options: CompileOptions = {}): { sitemap: 
 	let { s } = res;
 	const { parsed } = res;
 
+	// Set some default options
 	if (!options.sections) {
 		options.sections = ['import', 'declarations', 'assignments', 'references'];
+	}
+	if (!options.predefinedGlobals) {
+		options.predefinedGlobals = [`console`];
 	}
 
 	const isPlanned = (section: Section) => options.sections.find(v => v === section);

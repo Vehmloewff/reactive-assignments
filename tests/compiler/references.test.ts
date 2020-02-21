@@ -40,4 +40,11 @@ describe(`Reactive References`, it => {
 
 		expect(compile(sourceCode, Object.assign({}, options, { predefinedGlobals: [`console`, `process`] })).code).toBe(expected);
 	});
+
+	it(`should work in a real-life setting`, expect => {
+		const sourceCode = `if (foo === 'bar') console.log('Hello, World!');`;
+		const expected = `if (($$store.isStore(foo) ? foo.get() : foo) === 'bar') console.log('Hello, World!');`;
+
+		expect(compile(sourceCode, Object.assign({}, options, { predefinedGlobals: [`console`, `process`] })).code).toBe(expected);
+	});
 });
