@@ -39,6 +39,8 @@ function shouldIgnore(obj: T, path: string[], ignore: Ignore[]): boolean {
 	let strikes = 0;
 
 	ignore.forEach(item => {
+		let didPass = false;
+
 		// Sibling test
 		if (item.isSibling) {
 			const testPathArr = Array.from(path);
@@ -46,13 +48,18 @@ function shouldIgnore(obj: T, path: string[], ignore: Ignore[]): boolean {
 
 			const testPath = testPathArr.concat(item.isSibling.key).join('.');
 
-			if (obj[testPath] === item.isSibling.value) strikes++;
+			if (obj[testPath] !== item.isSibling.value) didPass = true;
 		}
 
 		// Key test
 		if (item.hasKey) {
-			if (path.length && path[path.length - 1] === item.hasKey) strikes++;
+			if (path.length) {
+				if (path[path.length - 1] !== item.hasKey) didPass = true;
+			} else didPass = true;
 		}
+
+		// Finish
+		if (!didPass) strikes++;
 	});
 
 	return !!strikes;
