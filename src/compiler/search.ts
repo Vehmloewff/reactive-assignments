@@ -20,9 +20,9 @@ export default (obj: T, key: string, value: string, ignore: Ignore[] = []): T[] 
 		if (lastKey === key && flattened[path] === value) {
 			const key = makeArrayPath(path);
 
-			if (shouldIgnore(flattened, key, ignore)) return [];
-
-			result.push(makeTree(key, obj));
+			if (!shouldIgnore(flattened, key, ignore)) {
+				result.push(makeTree(key, obj));
+			}
 		}
 	}
 
