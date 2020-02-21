@@ -18,12 +18,13 @@ export default (parsed: Node, s: MagicString, initial: string): MagicString => {
 		if (assignment.left.type === 'Identifier') {
 			const varName = assignment.left.name;
 			const value = initial.slice(getPos(assignment.right).start, getPos(assignment.right).end);
+			const originalAssignment = initial.slice(getPos(assignment).start, getPos(assignment).end);
 
 			let setValue;
 			if (assignment.operator === '=') setValue = value;
 			else setValue = `${varName}.get() ${assignment.operator.replace(/=/, ``)} ${value}`;
 
-			reactiveAssignment = `${varName}.set(${setValue})`;
+			reactiveAssignment = `$$store.isStore(${varName}) ? ${varName}.set(${setValue}) : ${originalAssignment}`;
 		}
 		// For member expressions
 		else {
@@ -31,7 +32,7 @@ export default (parsed: Node, s: MagicString, initial: string): MagicString => {
 			const varName = varNode.name;
 			const entirePart = initial.slice(getPos(assignment).start, getPos(assignment).end);
 
-			reactiveAssignment = `${varName}.update(${varName} => {\n${entirePart};\nreturn ${varName};\n})`;
+			reactiveAssignment = `$$store.isStore(${varName})\n? ${varName}.update(${varName} => {\n${entirePart};\nreturn ${varName};\n})\n: ${entirePart}`;
 		}
 
 		s.overwrite(getPos(assignment).start, getPos(assignment).end, reactiveAssignment);
