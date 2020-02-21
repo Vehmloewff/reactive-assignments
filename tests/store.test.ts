@@ -1,5 +1,5 @@
 import { describe } from 'zip-tap';
-import { writableStore, dependantStore, readableStore } from '../src/runtime/store';
+import { writableStore, readableStore, isStore, updatable } from '../src/runtime/store';
 
 describe(`Stores`, it => {
 	it(`should update and call the subscribers`, expect => {
@@ -51,18 +51,6 @@ describe(`Stores`, it => {
 		expect(mirror.get()).toBe(`there`);
 	});
 
-	it(`dependant stores should update when the dependents do`, expect => {
-		const store1 = writableStore(`then`);
-		const store2 = writableStore(`where`);
-		const store3 = writableStore(`happened`);
-
-		const shouldUpdateWhenChildrenDo = dependantStore(() => [store1.get(), store2.get(), store3.get()], store1, store2, store3);
-
-		store2.set(`that`);
-
-		expect(shouldUpdateWhenChildrenDo.get().join(' ')).toBe(`then that happened`);
-	});
-
 	it(`the stores should run independent of each other`, expect => {
 		const stores = () => writableStore(true);
 		const store1 = stores();
@@ -71,5 +59,46 @@ describe(`Stores`, it => {
 		store1.set(false);
 
 		expect(store2.get()).toBe(true);
+	});
+
+	it(`isStore should work be acurate`, expect => {
+		const store = writableStore(`hi`);
+		const notStore = {
+			get: `hi`,
+			there: `that`,
+		};
+
+		expect(isStore(store)).toBe(true);
+		expect(isStore(notStore)).toBe(false);
+		expect(isStore({})).toBe(false);
+		expect(isStore(true)).toBe(false);
+		expect(isStore(`hi`)).toBe(false);
+	});
+
+	it(`updatables should call the function correctly`, expect => {
+		const store1 = writableStore(`hi`);
+		const store2 = readableStore(5);
+		const store3 = `hi`;
+
+		let called = 0;
+
+		const unsubscribe = updatable(
+			initial => {
+				if (initial) return;
+				called++;
+			},
+			store1,
+			store2,
+			store3
+		);
+
+		store1.set(`hiss`);
+		store1.set(`how`);
+
+		unsubscribe();
+
+		store1.set(`bow`);
+
+		expect(called).toBe(2);
 	});
 });

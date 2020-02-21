@@ -158,6 +158,8 @@ Calls `fn` everytime one of the store's value changes.
 
 If a value is passed into `stores` that is not a store, ReactiveJS will silently ignore it.
 
+Returns a function that will 'unsubscribe' from the stores when called.
+
 ### isStore
 
 ```ts

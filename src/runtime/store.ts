@@ -39,28 +39,33 @@ export const writableStore = <T>(startValue: T): WritableStore<T> => {
 	};
 };
 
-export const dependantStore = <T>(startValue: () => T, ...updatables: WritableStore<any>[]): WritableStore<T> => {
-	const { subscribe, set, update, get } = writableStore(startValue());
+export const readableStore = <T>(startValue: T, updater?: (actions: StoreActions<T>) => void): ReadableStore<T> => {
+	const { subscribe, set, update, get } = writableStore(startValue);
 
-	updatables.forEach(updatable => {
-		updatable.subscribe(() => set(startValue()));
-	});
+	if (updater) updater({ set, update });
 
 	return {
 		subscribe,
-		set,
-		update,
 		get,
 	};
 };
 
-export const readableStore = <T>(startValue: T, updater: (actions: StoreActions<T>) => void): ReadableStore<T> => {
-	const { subscribe, set, update, get } = writableStore(startValue);
+export const isStore = (testValue: any): boolean => {
+	const test = testValue as ReadableStore<any>;
 
-	updater({ set, update });
+	return typeof test.get === 'function' && typeof test.subscribe === 'function';
+};
 
-	return {
-		subscribe,
-		get,
-	};
+export const updatable = (fn: (initial: boolean) => void, ...stores: any[]) => {
+	fn(true);
+
+	const toUnsubscribe = stores.filter(isStore).map((store: ReadableStore<any>) => {
+		return store.subscribe((_, initial) => {
+			if (initial) return;
+
+			fn(false);
+		});
+	});
+
+	return () => toUnsubscribe.forEach(fn => fn());
 };
