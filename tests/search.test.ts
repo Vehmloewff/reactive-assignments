@@ -68,8 +68,8 @@ describe(`Object Search`, it => {
 	});
 
 	it(`should be able to ignore when key is invalid`, expect => {
-		const obj = { thing: { type: `var`, data: { var: `din` } } };
+		const obj = { thing: { type: `var`, data: { var: `din` }, other: { var: `din` } } };
 
-		expect(search(obj, `var`, `din`, [{ hasKey: `data` }])).toMatchObject([]);
+		expect(search(obj, `var`, `din`, [{ hasKey: `data` }])).toMatchObject([obj.thing.other]);
 	});
 });
