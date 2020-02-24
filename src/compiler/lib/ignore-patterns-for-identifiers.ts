@@ -29,6 +29,15 @@ const toIgnore: Ignore[] = [
 			value: `MemberExpression`,
 		},
 	},
+
+	// Assignment identifiers
+	{
+		hasKey: `left`,
+		isSibling: {
+			key: `type`,
+			value: `AssignmentExpression`,
+		},
+	},
 ];
 
 export default toIgnore;
