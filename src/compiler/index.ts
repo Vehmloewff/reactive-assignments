@@ -17,8 +17,7 @@ export interface CompileOptions {
 export function compile(code: string, options: CompileOptions = {}): { sitemap: string; code: string } {
 	const res = parse(code);
 
-	let { s } = res;
-	const { parsed } = res;
+	let { s, parsed } = res;
 
 	// Set some default options
 	if (!options.sections) {
@@ -31,10 +30,26 @@ export function compile(code: string, options: CompileOptions = {}): { sitemap: 
 	const isPlanned = (section: Section) => options.sections.find(v => v === section);
 
 	if (isPlanned('import')) s = importRuntime(parsed, s);
-	if (isPlanned('declarations')) s = declarations(parsed, s, code);
-	if (isPlanned('assignments')) s = assignments(parsed, s, code);
-	if (isPlanned('references')) s = references(parsed, s, code, options.predefinedGlobals);
+	if (isPlanned('declarations')) {
+		s = declarations(parsed, s, code);
+		reset();
+	}
+	if (isPlanned('assignments')) {
+		s = assignments(parsed, s, code);
+		reset();
+	}
+	if (isPlanned('references')) {
+		s = references(parsed, s, code, options.predefinedGlobals);
+		reset();
+	}
 	if (isPlanned('labels')) s = labels(parsed, s, code, options.predefinedGlobals);
+
+	function reset() {
+		code = s.toString();
+		const res = parse(code);
+		parsed = res.parsed;
+		s = res.s;
+	}
 
 	return {
 		sitemap: s.generateMap({ source: options.file, file: `${options.file}.map`, includeContent: true }).toString(),
