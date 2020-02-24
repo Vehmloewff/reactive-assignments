@@ -20,6 +20,13 @@ describe(`Reactive References`, it => {
 		expect(compile(sourceCode, options).code).toBe(expected);
 	});
 
+	it(`should not work on assignments`, expect => {
+		const sourceCode = `foo = bar`;
+		const expected = `foo = ($$store.isStore(bar) ? bar.get() : bar)`;
+
+		expect(compile(sourceCode, options).code).toBe(expected);
+	});
+
 	it(`should not work on labeled statements`, expect => {
 		const sourceCode = `$: foo`;
 		const expected = `$: ($$store.isStore(foo) ? foo.get() : foo)`;
