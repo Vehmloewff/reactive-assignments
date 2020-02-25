@@ -5,7 +5,7 @@ import assignments from './tasks/assignments';
 import references from './tasks/references';
 import labels from './tasks/labels';
 
-type Section = 'import' | 'declarations' | 'assignments' | 'references' | 'labels';
+type Section = 'import' | 'references' | 'declarations' | 'assignments' | 'labels';
 
 export interface CompileOptions {
 	sourcemap?: boolean;
@@ -30,6 +30,10 @@ export function compile(code: string, options: CompileOptions = {}): { sitemap: 
 	const isPlanned = (section: Section) => options.sections.find(v => v === section);
 
 	if (isPlanned('import')) s = importRuntime(parsed, s);
+	if (isPlanned('references')) {
+		s = references(parsed, s, code, options.predefinedGlobals);
+		reset();
+	}
 	if (isPlanned('declarations')) {
 		s = declarations(parsed, s, code);
 		reset();
@@ -38,14 +42,12 @@ export function compile(code: string, options: CompileOptions = {}): { sitemap: 
 		s = assignments(parsed, s, code);
 		reset();
 	}
-	if (isPlanned('references')) {
-		s = references(parsed, s, code, options.predefinedGlobals);
-		reset();
-	}
 	if (isPlanned('labels')) s = labels(parsed, s, code, options.predefinedGlobals);
 
 	function reset() {
 		code = s.toString();
+		console.log(code);
+
 		const res = parse(code);
 		parsed = res.parsed;
 		s = res.s;
