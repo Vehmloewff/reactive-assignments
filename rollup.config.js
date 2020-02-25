@@ -4,9 +4,12 @@ import sucrase from '@rollup/plugin-sucrase';
 import globFiles from 'rollup-plugin-glob-files';
 import command from 'rollup-plugin-command';
 
-import generateCompilerMeta from './commands/generate-compiler-meta.js';
+import generateCompilerMeta from './commands/generate-compiler-meta';
+import buildCompilerForLiveTests from './commands/build-compiler-for-lt';
+import transformLtFiles from './commands/transform-lt-files';
 
 const prod = process.env.NODE_ENV === 'production';
+const liveMode = process.env.TEST_LIVE;
 const watching = process.env.ROLLUP_WATCH;
 
 const plugins = [
@@ -48,4 +51,21 @@ const test = {
 	),
 };
 
-export default prod ? [compiler, runtime] : test;
+const liveTest = {
+	input: `@liveTests`,
+	output: { file: `dist/live-tests-raw.js`, format: 'cjs' },
+	plugins: [
+		buildCompilerForLiveTests,
+		resolve(),
+		commonjs(),
+		globFiles({
+			key: `@liveTests`,
+			include: `./tests/compiler/fixture/**/*.js`,
+			justImport: true,
+		}),
+		transformLtFiles,
+		command(`node dist/live-tests-raw.js`, { exitOnFail: !watching }),
+	],
+};
+
+export default prod ? [compiler, runtime] : liveMode ? liveTest : test;
