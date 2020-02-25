@@ -46,7 +46,6 @@ export function compile(code: string, options: CompileOptions = {}): { sitemap: 
 
 	function reset() {
 		code = s.toString();
-		console.log(code);
 
 		const res = parse(code);
 		parsed = res.parsed;
