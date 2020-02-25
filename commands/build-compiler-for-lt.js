@@ -7,10 +7,10 @@ export default {
 			const child = spawn(`npm`, [`run`, `build`]);
 
 			child.stdout.on('data', data => {
-				console.log(data.toString());
+				process.stdout.write(data.toString());
 			});
 			child.stderr.on('data', data => {
-				console.log(data.toString());
+				process.stdout.write(data.toString());
 			});
 
 			child.on('close', code => {

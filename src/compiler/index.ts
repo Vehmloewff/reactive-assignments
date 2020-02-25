@@ -12,6 +12,7 @@ export interface CompileOptions {
 	file?: string;
 	sections?: Section[];
 	predefinedGlobals?: string[];
+	reactivejs?: string;
 }
 
 export function compile(code: string, options: CompileOptions = {}): { sitemap: string; code: string } {
@@ -29,7 +30,7 @@ export function compile(code: string, options: CompileOptions = {}): { sitemap: 
 
 	const isPlanned = (section: Section) => options.sections.find(v => v === section);
 
-	if (isPlanned('import')) s = importRuntime(parsed, s);
+	if (isPlanned('import')) s = importRuntime(parsed, s, options.file, options.reactivejs);
 	if (isPlanned('references')) {
 		s = references(parsed, s, code, options.predefinedGlobals);
 		reset();

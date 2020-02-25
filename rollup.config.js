@@ -1,6 +1,7 @@
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import sucrase from '@rollup/plugin-sucrase';
+import json from '@rollup/plugin-json';
 import globFiles from 'rollup-plugin-glob-files';
 import command from 'rollup-plugin-command';
 
@@ -15,6 +16,7 @@ const watching = process.env.ROLLUP_WATCH;
 const plugins = [
 	resolve(),
 	commonjs(),
+	json(),
 	sucrase({
 		transforms: ['typescript'],
 	}),
@@ -53,7 +55,7 @@ const test = {
 
 const liveTest = {
 	input: `@liveTests`,
-	output: { file: `dist/live-tests-raw.js`, format: 'cjs' },
+	output: { file: `dist/live-tests.js`, format: 'cjs' },
 	plugins: [
 		buildCompilerForLiveTests,
 		resolve(),
@@ -64,7 +66,7 @@ const liveTest = {
 			justImport: true,
 		}),
 		transformLtFiles,
-		command(`node dist/live-tests-raw.js`, { exitOnFail: !watching }),
+		command(`node dist/live-tests.js`, { exitOnFail: !watching }),
 	],
 };
 
