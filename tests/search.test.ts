@@ -72,4 +72,10 @@ describe(`Object Search`, it => {
 
 		expect(search(obj, `var`, `din`, [{ hasKey: `data` }])).toMatchObject([obj.thing.other]);
 	});
+
+	it(`should not require all values to be present`, expect => {
+		const obj = { thing: { type: `var`, data: { var: `din` }, other: { var: `din` } } };
+
+		expect(search(obj, `var`, `din`, [{ isSibling: { key: `type`, value: `var` } }])).toMatchObject([]);
+	});
 });
