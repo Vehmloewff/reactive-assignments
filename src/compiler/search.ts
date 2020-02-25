@@ -54,7 +54,9 @@ function shouldIgnore(obj: T, path: string[], ignore: Ignore[]): boolean {
 		// Key test
 		if (item.hasKey) {
 			if (path.length) {
-				if (path[path.length - 1] !== item.hasKey) didPass = true;
+				const countBack = item.hasKey.split('.').length;
+
+				if (getItemsAfterIndex(path, path.length - countBack).join('.') !== item.hasKey) didPass = true;
 			} else didPass = true;
 		}
 
@@ -63,6 +65,16 @@ function shouldIgnore(obj: T, path: string[], ignore: Ignore[]): boolean {
 	});
 
 	return !!strikes;
+}
+
+function getItemsAfterIndex(array: any[], startIndex: number) {
+	const res = [];
+
+	for (let i = startIndex; i < array.length; i++) {
+		res.push(array[i]);
+	}
+
+	return res;
 }
 
 function makeArrayPath(key: string): string[] {
