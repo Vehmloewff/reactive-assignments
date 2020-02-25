@@ -21,10 +21,10 @@ export function compile(code: string, options: CompileOptions = {}): { sitemap: 
 
 	// Set some default options
 	if (!options.sections) {
-		options.sections = ['import', 'declarations', 'assignments', 'references'];
+		options.sections = ['import', 'declarations', 'assignments', 'references', 'labels'];
 	}
 	if (!options.predefinedGlobals) {
-		options.predefinedGlobals = [`console`];
+		options.predefinedGlobals = [`console`, `$$store`];
 	}
 
 	const isPlanned = (section: Section) => options.sections.find(v => v === section);

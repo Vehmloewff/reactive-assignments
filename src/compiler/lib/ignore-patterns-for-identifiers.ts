@@ -38,6 +38,20 @@ const toIgnore: Ignore[] = [
 			value: `AssignmentExpression`,
 		},
 	},
+
+	// Function declarations
+	{
+		hasKey: `id`,
+		isSibling: {
+			key: `type`,
+			value: `FunctionDeclaration`,
+		},
+	},
+
+	// Function paramaters
+	{
+		hasKey: `params.{n}`,
+	},
 ];
 
 export default toIgnore;
