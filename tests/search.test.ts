@@ -84,4 +84,10 @@ describe(`Object Search`, it => {
 
 		expect(search(obj, `var`, `din`, [{ hasKey: `thing.data` }])).toMatchObject([obj.thing.other]);
 	});
+
+	it(`should make {n} represent a number in the path`, expect => {
+		const obj = { thing: { type: `var`, data: [{ var: `din` }], other: { var: `din`, me: `you` } } };
+
+		expect(search(obj, `var`, `din`, [{ hasKey: `thing.data.{n}` }])).toMatchObject([obj.thing.other]);
+	});
 });

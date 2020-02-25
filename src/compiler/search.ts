@@ -36,7 +36,7 @@ function contains(test: string) {
 }
 
 function shouldIgnore(obj: T, path: string[], ignore: Ignore[]): boolean {
-	let strikes = 0;
+	let shouldIgnore = false;
 
 	ignore.forEach(item => {
 		let didPass = false;
@@ -54,17 +54,18 @@ function shouldIgnore(obj: T, path: string[], ignore: Ignore[]): boolean {
 		// Key test
 		if (item.hasKey) {
 			if (path.length) {
-				const countBack = item.hasKey.split('.').length;
+				const testPath = item.hasKey.split('.');
+				const matchedPath = getItemsAfterIndex(path, path.length - testPath.length);
 
-				if (getItemsAfterIndex(path, path.length - countBack).join('.') !== item.hasKey) didPass = true;
+				if (!doPathsMatch(matchedPath, testPath)) didPass = true;
 			} else didPass = true;
 		}
 
 		// Finish
-		if (!didPass) strikes++;
+		if (!didPass) shouldIgnore = true;
 	});
 
-	return !!strikes;
+	return shouldIgnore;
 }
 
 function getItemsAfterIndex(array: any[], startIndex: number) {
@@ -75,6 +76,27 @@ function getItemsAfterIndex(array: any[], startIndex: number) {
 	}
 
 	return res;
+}
+
+function doPathsMatch(path1: string[], path2: string[]): boolean {
+	let match = true;
+
+	path1.forEach((item, index) => {
+		if (!doStringsMatch(path2[index], item)) match = false;
+	});
+
+	return match;
+}
+
+function doStringsMatch(string1: string, string2: string): boolean {
+	if (string1 === '{n}') return canBeNumber(string2);
+	if (string2 === '{n}') return canBeNumber(string1);
+
+	return string1 === string2;
+}
+
+function canBeNumber(test: string): boolean {
+	return /\d+/.test(test);
 }
 
 function makeArrayPath(key: string): string[] {
