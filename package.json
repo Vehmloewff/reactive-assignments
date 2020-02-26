@@ -2,33 +2,38 @@
 	"name": "reactivejs",
 	"version": "0.0.0",
 	"description": "Make javascript assignments reactive via a compiler",
-	"main": "dist/index.js",
-	"module": "dist/index.mjs",
-	"typings": "typings/runtime/index.d.ts",
-	"scripts": {
-		"build": "tsc && rollup --environment=NODE_ENV:production -c",
-		"test": "rollup -c",
-		"test:live": "rollup -c --environment=TEST_LIVE",
-		"lint": "prettier --write \"./**\"",
-		"lint:test": "prettier --check \"./**\"",
-		"clean": "rm -rf dist typings compiler",
-		"preversion": "npm run test && npm run lint:test && npm run build",
-		"prepublishOnly": "npm run clean && npm run build"
-	},
 	"keywords": [
 		"reactive",
 		"compiler",
 		"assignments"
 	],
+	"homepage": "https://github.com/Vehmloewff/reactivejs",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Vehmloewff/reactivejs"
+	},
+	"license": "MIT",
 	"author": {
 		"name": "Vehmloewff",
 		"url": "https://github.com/Vehmloewff"
 	},
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
+	"typings": "typings/runtime/index.d.ts",
 	"files": [
 		"dist",
 		"typings"
 	],
-	"license": "MIT",
+	"scripts": {
+		"build": "tsc && rollup --environment=NODE_ENV:production -c",
+		"clean": "rm -rf dist typings compiler",
+		"lint": "prettier --write \"./**\"",
+		"lint:test": "prettier --check \"./**\"",
+		"prepublishOnly": "npm run clean && npm run build",
+		"test": "rollup -c",
+		"test:live": "rollup -c --environment=TEST_LIVE",
+		"preversion": "npm run test && npm run lint:test && npm run build"
+	},
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^11.0.2",
 		"@rollup/plugin-json": "^4.0.2",
@@ -37,7 +42,10 @@
 		"@rollup/plugin-typescript": "^3.0.0",
 		"@types/estree": "0.0.42",
 		"@types/flat": "0.0.28",
+		"acorn": "^7.1.0",
 		"cross-spawn": "^7.0.1",
+		"flat": "^5.0.0",
+		"magic-string": "^0.25.6",
 		"prettier": "^1.19.1",
 		"rollup": "^1.31.1",
 		"rollup-plugin-command": "^1.1.2",
@@ -47,15 +55,5 @@
 		"write": "^2.0.0",
 		"zip-tap": "^1.0.6",
 		"zip-tap-reporter": "^2.0.1"
-	},
-	"homepage": "https://github.com/Vehmloewff/reactivejs",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/Vehmloewff/reactivejs"
-	},
-	"dependencies": {
-		"acorn": "^7.1.0",
-		"flat": "^5.0.0",
-		"magic-string": "^0.25.6"
 	}
 }
