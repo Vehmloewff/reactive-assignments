@@ -1,7 +1,7 @@
 {
 	"name": "reactivejs",
 	"version": "0.0.0",
-	"description": "TODO: Add description",
+	"description": "Make javascript assignments reactive via a compiler",
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
 	"typings": "typings/runtime/index.d.ts",
@@ -11,9 +11,9 @@
 		"test:live": "rollup -c --environment=TEST_LIVE",
 		"lint": "prettier --write \"./**\"",
 		"lint:test": "prettier --check \"./**\"",
+		"clean": "rm -rf dist typings compiler",
 		"preversion": "npm run test && npm run lint:test && npm run build",
-		"prepublishOnly": "npm run build",
-		"postversion": "git push && git push --tags && rm -rf build/temp && npm publish"
+		"prepublishOnly": "npm run clean && npm run build"
 	},
 	"keywords": [
 		"reactive",

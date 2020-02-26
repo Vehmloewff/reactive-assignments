@@ -1,12 +1,30 @@
 # reactivejs
 
-> (WIP) Make javascript assignments reactive via a compiler
+> Make javascript assignments reactive via a compiler
 
-> DISCLAIMER: This project is still in development! It is not yet ready for use.
+> This is an actively developed project. PRs, feedback, feature requests, and bug reports are always welcome here!
 
 ## Installation
 
-_Not on npm yet._ See the [development](#development) section for instructions on how to get this project running on your own machine.
+```shell
+npm i reactivejs
+```
+
+## Usage
+
+```js
+import { compile } from 'reactivejs/compiler';
+
+console.log(compile(`written code`, options));
+// -> { code: `reactive code` }
+```
+
+Valid options are:
+
+-   `file` _(optional)_ - The name of the file that is being compiled.
+-   `sections` _(optional)_ - An array of strings specifing which tasks to run. Valid strings are 'import', 'references', 'declarations', 'assignments', or 'labels'. By default, all tasks are run
+-   `predefinedGlobals` _(optional)_ - An array of variables that are not to be messed with. Default is `['console']`
+-   `reactivejs` _(optional)_ - The path to the ReactiveJS runtime. Default is `reactivejs`
 
 ## Strategy
 

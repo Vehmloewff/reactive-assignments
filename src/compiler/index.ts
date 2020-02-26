@@ -8,14 +8,14 @@ import labels from './tasks/labels';
 type Section = 'import' | 'references' | 'declarations' | 'assignments' | 'labels';
 
 export interface CompileOptions {
-	sourcemap?: boolean;
+	// sourcemap?: boolean;
 	file?: string;
 	sections?: Section[];
 	predefinedGlobals?: string[];
 	reactivejs?: string;
 }
 
-export function compile(code: string, options: CompileOptions = {}): { sitemap: string; code: string } {
+export function compile(code: string, options: CompileOptions = {}): { sourcemap: string; code: string } {
 	const res = parse(code);
 
 	let { s, parsed } = res;
@@ -25,8 +25,9 @@ export function compile(code: string, options: CompileOptions = {}): { sitemap: 
 		options.sections = ['import', 'declarations', 'assignments', 'references', 'labels'];
 	}
 	if (!options.predefinedGlobals) {
-		options.predefinedGlobals = [`console`, `$$store`];
+		options.predefinedGlobals = [`console`];
 	}
+	options.predefinedGlobals.push(`$$store`);
 
 	const isPlanned = (section: Section) => options.sections.find(v => v === section);
 
@@ -54,7 +55,10 @@ export function compile(code: string, options: CompileOptions = {}): { sitemap: 
 	}
 
 	return {
-		sitemap: s.generateMap({ source: options.file, file: `${options.file}.map`, includeContent: true }).toString(),
+		// @ts-ignore
+		sourcemap: options.sourcemap
+			? s.generateMap({ source: options.file, file: `${options.file}.map`, includeContent: true }).toString()
+			: null,
 		code: s.toString(),
 	};
 }
