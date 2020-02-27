@@ -146,7 +146,7 @@ This project uses [Prettier](https://prettier.io) for code formatting. Don't for
 ### writableStore
 
 ```ts
-store = writable(value: any);
+store = writableStore(value: any);
 ```
 
 `store` is an object with four methods:
