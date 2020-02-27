@@ -5,7 +5,7 @@ export default {
 		if (!isFixture.test(id)) return null;
 
 		const { compile } = require('./compiler/index');
-		const { code, sourcemap } = compile(oldCode, { reactivejs: '../../../' });
+		const { code, sourcemap } = compile(oldCode, { runtime: '../../../' });
 		console.log(code);
 
 		return code;

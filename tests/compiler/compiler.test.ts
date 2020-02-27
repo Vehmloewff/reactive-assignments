@@ -16,7 +16,7 @@ describe(`Compiler`, it => {
 		].join('\n');
 
 		const expected = [
-			`import * as $$store from 'reactivejs';`,
+			`import * as $$store from 'reactive-assignments';`,
 			``,
 			`function sayHello(name) {`,
 			`console.log(\`Hello, \${($$store.isStore(name) ? name.get() : name)}\`);`,

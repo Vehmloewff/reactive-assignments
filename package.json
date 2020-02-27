@@ -1,5 +1,5 @@
 {
-	"name": "reactivejs",
+	"name": "reactive-assignments",
 	"version": "0.0.0",
 	"description": "Make javascript assignments reactive via a compiler",
 	"keywords": [
@@ -7,10 +7,10 @@
 		"compiler",
 		"assignments"
 	],
-	"homepage": "https://github.com/Vehmloewff/reactivejs",
+	"homepage": "https://github.com/Vehmloewff/reactive-assignments",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Vehmloewff/reactivejs"
+		"url": "https://github.com/Vehmloewff/reactive-assignments"
 	},
 	"license": "MIT",
 	"author": {

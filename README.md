@@ -1,4 +1,4 @@
-# reactivejs
+# reactive-assignments
 
 > Make javascript assignments reactive via a compiler
 
@@ -7,13 +7,13 @@
 ## Installation
 
 ```shell
-npm i reactivejs
+npm i reactive-assignments
 ```
 
 ## Usage
 
 ```js
-import { compile } from 'reactivejs/compiler';
+import { compile } from 'reactive-assignments/compiler';
 
 console.log(compile(`written code`, options));
 // -> { code: `reactive code` }
@@ -24,7 +24,7 @@ Valid options are:
 -   `file` _(optional)_ - The name of the file that is being compiled.
 -   `sections` _(optional)_ - An array of strings specifing which tasks to run. Valid strings are 'import', 'references', 'declarations', 'assignments', or 'labels'. By default, all tasks are run
 -   `predefinedGlobals` _(optional)_ - An array of variables that are not to be messed with. Default is `['console']`
--   `reactivejs` _(optional)_ - The path to the ReactiveJS runtime. Default is `reactivejs`
+-   `runtime` _(optional)_ - The path to the reactive-assignments runtime. Default is `reactive-assignments`
 
 ## Strategy
 
@@ -40,7 +40,7 @@ The value of `bar` will always be bound to `foo`.
 
 The following is the plan to accomplish this.
 
-> Note: To really understand the following examples, you need to be familiar with [reactivejs stores](#stores-api).
+> Note: To really understand the following examples, you need to be familiar with [reactive-assignments stores](#stores-api).
 
 Via the compiler, this code...
 
@@ -51,7 +51,7 @@ let foo = `bar`;
 ...gets compiled into this:
 
 ```js
-import $$store from 'reactivejs';
+import $$store from 'reactive-assignments';
 
 const foo = $$store.writableStore(`bar`);
 ```
@@ -109,7 +109,7 @@ foo = `baz`;
 Compiled code:
 
 ```js
-import * as $$store from 'reactivejs';
+import * as $$store from 'reactive-assignments';
 
 let foo = $$store.writableStore(`bar`);
 
@@ -129,8 +129,8 @@ Pull Requests are encouraged and always welcome!
 
 ```sh
 # fork repo
-git clone https://github.com/[your_username]/reactivejs
-cd reactivejs
+git clone https://github.com/[your_username]/reactive-assignments
+cd reactive-assignments
 npm i
 npm test # or npm test -- -w
 ```
@@ -174,7 +174,7 @@ updatable(fn: () => void, ...stores)
 
 Calls `fn` everytime one of the store's value changes.
 
-If a value is passed into `stores` that is not a store, ReactiveJS will silently ignore it.
+If a value is passed into `stores` that is not a store, reactive-assignments will silently ignore it.
 
 Returns a function that will 'unsubscribe' from the stores when called.
 
