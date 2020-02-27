@@ -111,9 +111,9 @@ Compiled code:
 ```js
 import * as $$store from 'reactive-assignments';
 
-let foo = $$store.writableStore(`bar`);
+const foo = $$store.writableStore(`bar`);
 
-let bin = $$store.writableStore();
+const bin = $$store.writableStore();
 $$store.updatable(() => bin.set(foo), foo);
 
 foo.set(`baz`);
