@@ -1,6 +1,6 @@
 {
 	"name": "reactive-assignments",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "Make javascript assignments reactive via a compiler",
 	"keywords": [
 		"reactive",
