@@ -1,4 +1,4 @@
-console.log(`sayHello should be called twice.  Once for Jerry and once for Bob.`);
+console.log(`\n\n\nsayHello should be called twice.  Once for Jerry and once for Bob.`);
 
 function sayHello(name) {
 	console.log(`Hello, ${name}`);
