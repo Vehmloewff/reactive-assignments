@@ -13,6 +13,6 @@
 	},
 	"target": "ESNext",
 	"module": "ES6",
-	"include": ["src"],
+	"include": ["src", "untyped.d.ts"],
 	"exclude": ["node_modules"]
 }

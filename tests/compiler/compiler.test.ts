@@ -32,10 +32,8 @@ describe(`Compiler`, it => {
 			`$$store.isStore(name) ? name.set(\`Bob\`) : name = \`Bob\`;`,
 		];
 
-		expect(
-			compile(sourceCode)
-				.code.trim()
-				.split('\n')
-		).toMatchObject(expected);
+		const transformed = compile(sourceCode);
+
+		expect(transformed.code.trim().split('\n')).toMatchObject(expected);
 	});
 });
