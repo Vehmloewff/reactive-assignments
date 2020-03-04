@@ -19,6 +19,8 @@ console.log(compile(`written code`, options));
 // -> { code: `reactive code` }
 ```
 
+### Compiler Options
+
 Valid options are:
 
 -   `file` _(optional)_ - The name of the file that is being compiled.
