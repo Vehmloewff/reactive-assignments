@@ -63,7 +63,13 @@ describe(`Reactive References`, it => {
 	});
 
 	it(`should leave import statements alone`, expect => {
-		const sourceCode = [`import foo1 from './bar';`, `import * as foo2 from './bar';`, `import { foo3 } from 'bar'`].join('\n');
+		const sourceCode = [
+			`import foo1 from './bar';`,
+			`import * as foo2 from './bar';`,
+			`import { foo3 } from 'bar';`,
+			`import { foo as foo4 } from 'bar';`,
+			`import foo5, * as foo6 from './bar';`,
+		].join('\n');
 		const expected = sourceCode;
 
 		expect(compile(sourceCode, options).code).toBe(expected);

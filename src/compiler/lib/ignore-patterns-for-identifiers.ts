@@ -52,6 +52,26 @@ const toIgnore: Ignore[] = [
 	{
 		hasKey: `params.{n}`,
 	},
+
+	// Import statements
+	{
+		isSibling: {
+			key: `type`,
+			value: `ImportNamespaceSpecifier`,
+		},
+	},
+	{
+		isSibling: {
+			key: `type`,
+			value: `ImportDefaultSpecifier`,
+		},
+	},
+	{
+		isSibling: {
+			key: `type`,
+			value: `ImportSpecifier`,
+		},
+	},
 ];
 
 export default toIgnore;
