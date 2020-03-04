@@ -22,7 +22,8 @@
 	"typings": "typings/runtime/index.d.ts",
 	"files": [
 		"dist",
-		"typings"
+		"typings",
+		"compiler"
 	],
 	"scripts": {
 		"build": "tsc && rollup --environment=NODE_ENV:production -c",
