@@ -59,6 +59,13 @@ describe(`Reactive References`, it => {
 		const sourceCode = `if (foo === 'bar') console.log(data.valueOf());`;
 		const expected = `if (($$store.isStore(foo) ? foo.get() : foo) === 'bar') console.log(data);`;
 
-		expect(compile(sourceCode, Object.assign({}, options, { predefinedGlobals: [`console`, `process`] })).code).toBe(expected);
+		expect(compile(sourceCode, options).code).toBe(expected);
+	});
+
+	it(`should leave import statements alone`, expect => {
+		const sourceCode = [`import foo1 from './bar';`, `import * as foo2 from './bar';`, `import { foo3 } from 'bar'`].join('\n');
+		const expected = sourceCode;
+
+		expect(compile(sourceCode, options).code).toBe(expected);
 	});
 });
