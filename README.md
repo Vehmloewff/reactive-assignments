@@ -16,7 +16,7 @@ npm i reactive-assignments
 import { compile } from 'reactive-assignments/compiler';
 
 console.log(compile(`written code`, options));
-// -> { code: `reactive code` }
+// -> { code: `reactive code`, sourcemap: { version: 3, mappings: ';;AAA...', ... } }
 ```
 
 [See some examples](/tests/compiler/fixture) for information on how the syntax works.
@@ -29,6 +29,7 @@ Valid options are:
 -   `sections` _(optional)_ - An array of strings specifing which tasks to run. Valid strings are 'import', 'references', 'declarations', 'assignments', or 'labels'. By default, all tasks are run
 -   `predefinedGlobals` _(optional)_ - An array of variables that are not to be messed with. Default is `['console']`
 -   `runtime` _(optional)_ - The path to the reactive-assignments runtime. Default is `reactive-assignments`
+-   `sourcemap` _(optional)_ - If the compiler should generate sourcemaps or not. Default is `true`
 
 ## Strategy
 

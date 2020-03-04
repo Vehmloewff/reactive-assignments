@@ -16,7 +16,16 @@ export interface CompileOptions {
 	runtime?: string;
 }
 
-export function compile(code: string, options: CompileOptions = {}): { sourcemap: string; code: string } {
+interface Sourcemap {
+	version: 3;
+	sources: string[];
+	names: string[];
+	mappings: string;
+	file: string;
+	sourcesContent: string[];
+}
+
+export function compile(code: string, options: CompileOptions = {}): { sourcemap: Sourcemap; code: string } {
 	const res = parse(code);
 
 	let { s, parsed } = res;
@@ -32,7 +41,7 @@ export function compile(code: string, options: CompileOptions = {}): { sourcemap
 	options.predefinedGlobals.push(`$$store`);
 
 	const isPlanned = (section: Section) => options.sections.find(v => v === section);
-	let sourcemap: string;
+	let sourcemap: Sourcemap;
 
 	if (isPlanned('import')) s = importRuntime(parsed, s, options.file, options.runtime);
 	if (isPlanned('references')) {
@@ -70,7 +79,7 @@ export function compile(code: string, options: CompileOptions = {}): { sourcemap
 	}
 
 	return {
-		sourcemap: JSON.stringify(sourcemap),
+		sourcemap,
 		code: s.toString(),
 	};
 }
