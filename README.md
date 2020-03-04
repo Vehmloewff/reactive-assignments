@@ -1,6 +1,6 @@
 # reactive-assignments
 
-> Make javascript assignments reactive via a compiler
+Make javascript assignments reactive via a compiler
 
 > This is an actively developed project. PRs, feedback, feature requests, and bug reports are always welcome here!
 
@@ -18,6 +18,8 @@ import { compile } from 'reactive-assignments/compiler';
 console.log(compile(`written code`, options));
 // -> { code: `reactive code` }
 ```
+
+[See some examples](/tests/compiler/fixture) for information on how the syntax works.
 
 ### Compiler Options
 
