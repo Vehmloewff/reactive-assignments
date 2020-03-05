@@ -72,6 +72,15 @@ const toIgnore: Ignore[] = [
 			value: `ImportSpecifier`,
 		},
 	},
+
+	// Objects
+	{
+		isSibling: {
+			key: `type`,
+			value: `Property`,
+		},
+		hasKey: `key`,
+	},
 ];
 
 export default toIgnore;

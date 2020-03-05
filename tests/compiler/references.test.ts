@@ -74,4 +74,11 @@ describe(`Reactive References`, it => {
 
 		expect(compile(sourceCode, options).code).toBe(expected);
 	});
+
+	it(`should leave object keys alone`, expect => {
+		const sourceCode = [`const foo = {`, `foo: 'bar',`, `lou: { doo: 'lucas' }`, `}`].join('\n');
+		const expected = sourceCode;
+
+		expect(compile(sourceCode, options).code).toBe(expected);
+	});
 });

@@ -33,7 +33,7 @@ function getContext(code: string, line: number, column: number) {
 	const foward = line + 5;
 	const extract = lines
 		.slice(back < 0 ? 0 : back, foward > lines.length ? lines.length : foward)
-		.map((code, index) => `${makeThreeDigits(index + 1)} |  ${code}`);
+		.map((code, index) => `${makeThreeDigits(index + 1 + (back < 0 ? 0 : back))} |  ${code}`);
 
 	extract.splice(line, 0, generatePointer(column));
 
