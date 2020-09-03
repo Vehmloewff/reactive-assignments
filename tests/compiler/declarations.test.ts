@@ -39,4 +39,11 @@ describe(`Reactive Declarations`, it => {
 
 		expect(compile(sourceCode, options).code).toBe(expected);
 	});
+
+	it(`should service many nested scopes`, expect => {
+		const sourceCode = [`const me = something(() => {let data = 'foo'})`].join('\n');
+		const expected = [`const me = writableStore(() => {const data = writableStore('foo')})`].join('\n');
+
+		expect(compile(sourceCode, options).code).toBe(expected);
+	});
 });
